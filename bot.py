@@ -39,19 +39,18 @@ async def async_run(command):
 
 @command("mpv")
 async def mpv_command(bot, message, *args, **kwargs):
+    SOCKET_PATH = '/tmp/bot_mpvsocket'
     is_running = await is_mpv_running()
     if not is_running:
-        command = f'mpv --player-operation-mode=pseudo-gui {args[0]}'
+        command = f'mpv --input-ipc-server={SOCKET_PATH} --player-operation-mode=pseudo-gui {args[0]}'
         asyncio.create_task(async_run(command))
         bot.send_message(message["from"], "Iniciando")
         return
     else:
-        SOCKET_PATH = '/tmp/mpvsocket'
-
         if args[0] == "fullscreen":
             command = "set fullscreen yes\n"
         else:
-            command = "loadfile {}\n".format(args[0])
+            command = f"--input-ipc-server={SOCKET_PATH} loadfile {args[0]}\n"
 
         with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as s:
             s.connect(SOCKET_PATH)
