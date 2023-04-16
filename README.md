@@ -26,6 +26,10 @@
 sudo prosodyctl cert generate vmbox.lan
 ```
 
+```
+sudo prosodyctl check certs
+```
+
 
 ```
 sudo prosodyctl about
