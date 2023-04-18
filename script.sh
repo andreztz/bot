@@ -1,6 +1,7 @@
 sudo timedatectl set-timezone America/Sao_Paulo
 
 sudo pacman -Sy --noconfirm
+sudo pacman -S python --noconfirm
 sudo pacman -S prosody --noconfirm
 sudo pacman -S luarocks --noconfirm
 sudo pacman -S gcc --noconfirm
