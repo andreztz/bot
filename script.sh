@@ -1,22 +1,26 @@
 sudo timedatectl set-timezone America/Sao_Paulo
+# Archlinux
+# sudo pacman -Sy --noconfirm
+# sudo pacman -S python --noconfirm
+# sudo pacman -S prosody --noconfirm
+# sudo pacman -S luarocks --noconfirm
+# sudo pacman -S gcc --noconfirm
+# sudo pacman -S unbound --noconfirm
+# sudo luarocks install luaunbound
+# sudo systemctl start prosody.service
 
-sudo pacman -Sy --noconfirm
-sudo pacman -S python --noconfirm
-sudo pacman -S prosody --noconfirm
-sudo pacman -S luarocks --noconfirm
-sudo pacman -S gcc --noconfirm
-sudo pacman -S unbound --noconfirm
-
-sudo luarocks install luaunbound
+# Debian
+sudo apt update -y
+sudo apt install lua5.3 -y
+sudo apt install luarocks -y
+sudo apt install prosody -y
+sudo apt install unbound -y
 
 sudo usermod -aG prosody vagrant
 
 sudo touch /run/prosody/prosody.pid
 sudo chown prosody:prosody /run/prosody/prosody.pid
-
 sudo cp /vagrant/prosody.cfg.lua /etc/prosody/prosody.cfg.lua
-
-python /vagrant/init.py vmbox.lan
 
 # sudo prosodyctl cert generate vmbox.lan
 # Gera as chaves
@@ -45,4 +49,6 @@ sudo chown root:prosody /etc/prosody/certs/vmbox.lan.key
 # sudo -u prosody cat /path/to/certificate.key # Should succeed
 # sudo -u nobody cat /path/to/certificate.key # Should fail
 
-sudo systemctl start prosody.service
+python3 /vagrant/init.py vmbox.lan
+
+sudo systemctl restart prosody.service

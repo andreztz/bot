@@ -1,6 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-BOX = "archlinux/archlinux"
+BOX = "debian/buster64"
 HOSTNAME = "vmbox" 
 IP_ADDRESS = "192.168.1.20" 
 CPUS = 2
@@ -26,4 +26,3 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", path: "script.sh", args: [DOMAIN_NAME]
   end
 end
-
