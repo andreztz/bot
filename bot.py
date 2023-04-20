@@ -75,26 +75,16 @@ class Bot(slixmpp.ClientXMPP):
     async def message_handler(self, message):
         if message['type'] in ('chat', 'normal'):
             if match := COMMAND_REGEX.match(message["body"]):
-                name = match.group(1)
+                command_name = match.group(1)
                 args = match.group(2).split()
+                await self.execute(command_name, args, message)
 
-                func = self.commands[name]
-
-                if func:
-                    try:
-                        await func(self, message, *args)
-                    except Exception as exc:
-                        self.send_message(
-                            message['from'],
-                            f"Erro ao executar o comando '{name}': {exc}"
-                        )
-
-    def execute(self, command, args, msg):
+    async def execute(self, command, args, message):
         try:
             func = self.commands[command]
-            func(self, msg, *args)
+            await func(self, message, *args)
         except KeyError:
-            self.send_message(msg["from"], "Command not found.")
+            self.send_message(message["from"], "Command not found.")
 
 
 if __name__ == '__main__':
