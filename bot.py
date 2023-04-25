@@ -1,7 +1,7 @@
 import asyncio
 import re
 import socket
-import slixmpp
+from slixmpp.clientxmpp import ClientXMPP
 
 import psutil
 
@@ -60,10 +60,10 @@ async def mpv_command(bot, message, *args, **kwargs):
         bot.send_message(message["from"], "Executando comando no mpv")
 
 
-class Bot(slixmpp.ClientXMPP):
 
+class Bot(ClientXMPP):
     def __init__(self, jid, password):
-        slixmpp.ClientXMPP.__init__(self, jid, password)
+        super().__init__(jid, password)
         self.add_event_handler("session_start", self.start_session)
         self.add_event_handler('message', self.message_handler)
         self.commands = COMMANDS
