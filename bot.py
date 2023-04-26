@@ -106,13 +106,12 @@ if __name__ == '__main__':
         format='%(levelname)-8s %(message)s'
     )
 
-    bot = Bot(f'{username}@vmbox.lan/python-bot', password)
-    bot.register_plugin('xep_0030') # Service Discovery
-    bot.register_plugin('xep_0004') # Data Forms
-    bot.register_plugin('xep_0060') # PubSub
-    bot.register_plugin('xep_0199') # XMPP Ping
-    bot.register_plugin('xep_0199') # Ping
-    bot.use_tls = True
+    bot = Bot(f"{username}@vmbox.lan/python-bot", password)
+    bot.register_plugin("xep_0030")  # Service Discovery
+    bot.register_plugin("xep_0004")  # Data Forms
+    bot.register_plugin("xep_0060")  # PubSub
+    bot.register_plugin("xep_0199")  # XMPP Ping
+    bot.use_ssl = True
 
     context = ssl.create_default_context()
     context.check_hostname = False
